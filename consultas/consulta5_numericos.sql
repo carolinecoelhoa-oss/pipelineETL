@@ -1,0 +1,20 @@
+--contagem de dados não são compatíveis com o tipo numérico/data + verificação de valores nulos que não deveriam existir + verificação de inconsistencias
+SELECT
+  COUNTIF(SAFE_CAST(discount AS FLOAT64) IS NULL AND discount IS NOT NULL) AS discount_invalido,
+  COUNTIF(SAFE_CAST(profit AS FLOAT64) IS NULL AND profit IS NOT NULL) AS profit_invalido,
+  COUNTIF(SAFE_CAST(quantity AS INT64) IS NULL AND quantity IS NOT NULL) AS quantity_invalido,
+  COUNTIF(SAFE_CAST(sales AS FLOAT64) IS NULL AND sales IS NOT NULL) AS sales_invalido,
+  COUNTIF(SAFE_CAST(shipping_cost AS FLOAT64) IS NULL AND shipping_cost IS NOT NULL) AS shipping_cost_invalido,
+  COUNTIF(SAFE_CAST(year AS INT64) IS NULL AND year IS NOT NULL) AS year_invalido,
+  COUNTIF(SAFE_CAST(unknown AS INT64) IS NULL AND unknown IS NOT NULL) AS unknown_invalido,
+  COUNTIF(SAFE_CAST(order_date AS TIMESTAMP) IS NULL AND order_date IS NOT NULL) AS order_date_inconsistente,
+  COUNTIF(SAFE_CAST(ship_date AS TIMESTAMP) IS NULL AND ship_date IS NOT NULL) AS ship_date_inconsistente,
+  COUNTIF(discount < 0) AS discount_negativo,
+  COUNTIF(profit < 0) AS profit_negativo,
+  COUNTIF(quantity < 0) AS quantity_negativo,
+  COUNTIF(sales < 0) AS sales_negativo,
+  COUNTIF(shipping_cost < 0) AS shipping_cost_negativo,
+  COUNTIF(year < 0) AS year_negativo,
+  COUNTIF(discount > 1) AS discount_maior_que_1,
+  COUNTIF(quantity = 0) AS quantity_igual_zero,
+FROM `lab-rota1.dataset.superstore`;
