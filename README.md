@@ -1,60 +1,48 @@
-# Nome do Projeto
+# Pipeline ETL
 
-> Breve descrição do projeto em 2-3 frases, explicando o propósito, motivação e problema que resolve.
+> Projeto de exemplo de pipeline ETL para a base "Super Store" com criação de tabelas de dimensão e fato, análises de qualidade de dados e exemplos de carga para Google BigQuery.
 
-![Demonstração do sistema](link-para-gif-ou-imagem)
+![Demonstração das tabelas](https://github.com/carolinecoelhoa-oss/pipelineETL/blob/main/results/tabelas_fato_dimensao.png)
 
 ## Funcionalidades Principais
 
-- Liste as principais funcionalidades do projeto.
-- Destaque o que é inovador ou diferencial.
+- Extração e limpeza de dados do CSV `data/rota1_superstore.csv`.
+- Gerenciar grandes volumes de dados dispersos e duplicados.
+- Análises para compreensão das variáveis.
+- Criação de tabelas fato e dimensões.
+- Criação de sistema que extrai, transforma e carrega dados de forma eficiente.
+
 
 ## Resultados e Conclusões
 
-(Quando conter no projeto. Geralmente utilizado para projetos de datascience)
+O projeto demonstra um fluxo ETL simples e reprodutível para transformar um CSV de vendas em um modelo dimensional. Inclui validações básicas de qualidade de dados (nulos, outliers), criação de tabelas de dimensão/fato e pipeline de atualização (sequência de atualizaçãoes e boas práticas).
 
 ## Tecnologias Utilizadas
 
-- Liste as principais tecnologias, frameworks e bibliotecas.
-
-## Como Executar
-
-1. Clone o repositório:
-   ```
-   git clone https://github.com/usuario/repositorio.git
-   ```
-2. Instale as dependências:
-   ```
-   comando de instalação
-   ```
-3. Execute o projeto:
-   ```
-   comando para rodar
-   ```
-
-## Como Usar
-
-- Explique como acessar e testar as principais funcionalidades.
-- Se necessário, inclua exemplos de uso ou prints.
+- google-bigquery
+- powerBI
 
 ## Estrutura de Diretórios
 
 ```
-/nome-do-projeto
-├── src/
-├── data/
-├── results/
+/PipelineETL/
+├── consultas/
+├── data/ # CSV de entrada
+├── results/ # Imagens, gráficos, elementos
 └── README.md
 ```
 
+## Pipeline de atualização das tabelas (resumo)
+- Ordem recomendada: `dim_clients` → `dim_ship` → `dim_products` → `dim_orders` → `dim_concorrência` → `ft_sales`.
+- As atualizações daas tabelas dimensão podem ocorrer em paralelo. Após a conclusão da atualização de todas tabelas dimensão, carregar os novos registros na ft_sales.
+- A ordem de atualização é crucial para integridade do modelo.
+- Adotamos a estratégia SCD Tipo 1. Se um atributo mudar (ex: endereço do cliente), o registro antigo é sobrescrito para garantir que as análises sempre reflitam o valor mais atual. É possível modificar essa decisão e adotar tipo 2 para registro de histórico, caso o objetivo passe a ser mudanças na base ao longo do tempo.
+
 ## Status
 
-- Concluído
-- Em manutenção
-- Em desenvolvimento
+- ✅ Concluído
 
-> Veja as [issues abertas](https://github.com/usuario/repositorio/issues) para sugestões de melhorias e próximos passos.
 
 ## Mais Sobre Mim
 
-Acesse os arquivos disponíveis na [Pasta Documentos](https://github.com/ ) para mais informações sobre minhas qualificações e certificações.
+A autora do projeto: Caroline. Mais projetos em https://github.com/carolinecoelhoa-oss 
